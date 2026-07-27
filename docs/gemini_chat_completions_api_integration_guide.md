@@ -402,7 +402,7 @@ It can be seen from the above that the Gemini 3.0 model supports multimodal unde
 
 ## Gemini-3.1 Multimodal Model
 
-Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, with the underlying model being `gemini-3.1-pro-preview`, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
+Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
 
 Request example:
 
