@@ -86,7 +86,7 @@ It can be seen that the `content` field in `choices` contains the specific conte
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to display results word by word.
 
-If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
+If you want to return responses in a streaming manner, you can set the `stream` field in the JSON request body to `true`.
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
@@ -113,8 +113,10 @@ payload = {
     "stream": True
 }
 
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
+response = requests.post(url, json=payload, headers=headers, stream=True)
+for line in response.iter_lines():
+    if line:
+        print(line.decode("utf-8"))
 ```
 
 The output effect is as follows:
@@ -146,45 +148,72 @@ JavaScript is also supported, for example, the streaming call code for Node.js i
 
 ```javascript
 const options = {
-  method: "post",
+  method: "POST",
   headers: {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
+    accept: "application/json",
+    authorization: "Bearer {token}",
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    "model": "gemini-2.5-pro",
-    "messages": [{"role":"user","content":"Hello,What model are you?"}],
-    "stream": true
+    model: "gemini-2.5-pro",
+    messages: [{ role: "user", content: "Hello, what model are you?" }],
+    stream: true
   })
 };
 
-fetch("https://api.acedata.cloud/gemini/chat/completions", options)
-  .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
+const response = await fetch("https://api.acedata.cloud/gemini/chat/completions", options);
+const reader = response.body.getReader();
+const decoder = new TextDecoder("utf-8");
+while (true) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  process.stdout.write(decoder.decode(value));
+}
 ```
 
 Java sample code:
 
 ```java
-JSONObject jsonObject = new JSONObject();
-jsonObject.put("model", "gemini-2.5-pro");
-jsonObject.put("messages", [{"role":"user","content":"Hello,What model are you?"}]);
-jsonObject.put("stream", true);
-MediaType mediaType = "application/json; charset=utf-8".toMediaType();
-RequestBody body = jsonObject.toString().toRequestBody(mediaType);
-Request request = new Request.Builder()
-  .url("https://api.acedata.cloud/gemini/chat/completions")
-  .post(body)
-  .addHeader("accept", "application/json")
-  .addHeader("authorization", "Bearer {token}")
-  .addHeader("content-type", "application/json")
-  .build();
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-OkHttpClient client = new OkHttpClient();
-Response response = client.newCall(request).execute();
-System.out.print(response.body!!.string())
+public class Main {
+  public static void main(String[] args) throws Exception {
+    JSONObject payload = new JSONObject()
+      .put("model", "gemini-2.5-pro")
+      .put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "Hello, what model are you?")))
+      .put("stream", true);
+    RequestBody body = RequestBody.create(payload.toString(), MediaType.parse("application/json; charset=utf-8"));
+    Request request = new Request.Builder()
+      .url("https://api.acedata.cloud/gemini/chat/completions")
+      .post(body)
+      .addHeader("accept", "application/json")
+      .addHeader("authorization", "Bearer {token}")
+      .addHeader("content-type", "application/json")
+      .build();
+
+    try (Response response = new OkHttpClient().newCall(request).execute()) {
+      if (!response.isSuccessful() || response.body() == null) {
+        throw new IllegalStateException("HTTP " + response.code());
+      }
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), StandardCharsets.UTF_8))) {
+        for (String line; (line = reader.readLine()) != null; ) {
+          if (!line.isEmpty()) {
+            System.out.println(line);
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 Other languages can be rewritten accordingly; the principle is the same.
