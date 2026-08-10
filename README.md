@@ -6,7 +6,7 @@ Google Gemini generative services, including chat completions and native generat
 
 API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/service/gemini)
 
-Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: gemini-api, google-gemini, gemini-3.6-flash, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Gemini on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.5-flash, chat-comp
 
 ## Overview
 
-Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. The current flagship models are `gemini-3.1-pro` and `gemini-3.5-flash`, with `gemini-3-pro-preview`, `gemini-2.5-pro`, `gemini-2.5-flash`, and other variants also available. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode.
+Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. The current flagship models are `gemini-3.1-pro` and `gemini-3.6-flash` (Chat Completions only), with `gemini-3-pro-preview`, `gemini-2.5-pro`, `gemini-2.5-flash`, and other variants also available. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode.
 
 ## Application Process
 
@@ -36,7 +36,7 @@ curl --request POST "https://api.acedata.cloud/gemini/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "gemini-3.5-flash",
+    "model": "gemini-3.6-flash",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
