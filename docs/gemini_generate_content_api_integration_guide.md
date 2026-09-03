@@ -43,25 +43,35 @@ Example return result:
   "candidates": [
     {
       "content": {
-        "parts": [
-          {
-            "text": "Hello! I am Gemini, a large language model developed by Google..."
-          }
-        ],
-        "role": "model"
+        "role": "model",
+        "parts": [{"text": "Hello! I am a large language model, trained by Google."}]
       },
-      "finishReason": "STOP",
-      "index": 0
+      "finishReason": "MAX_TOKENS"
     }
   ],
   "usageMetadata": {
-    "promptTokenCount": 10,
-    "candidatesTokenCount": 150,
-    "totalTokenCount": 160
+    "promptTokenCount": 5,
+    "candidatesTokenCount": 16,
+    "thoughtsTokenCount": 492,
+    "totalTokenCount": 513
   },
-  "modelVersion": "gemini-2.5-flash"
+  "usage": {
+    "prompt_tokens": 5,
+    "completion_tokens": 16,
+    "total_tokens": 513,
+    "thoughts_tokens": 492,
+    "cost": {
+      "amount": 0.00245943156744,
+      "currency": "credit",
+      "list_amount": 0.002673295182
+    }
+  },
+  "modelVersion": "gemini-2.5-flash",
+  "model": "gemini-2.5-flash"
 }
 ```
+
+`usageMetadata` preserves the native Gemini token fields. Ace Data Cloud also returns a normalized `usage` object; read the per-call charge from `usage.cost` across model protocols. The `cost` preview is optional: if pricing is temporarily unavailable, the model response still succeeds and returns token usage without `cost`. The finalized usage record remains authoritative.
 
 ### Streaming
 
@@ -85,7 +95,16 @@ curl -X POST "https://api.acedata.cloud/v1beta/models/gemini-2.5-flash:streamGen
   }'
 ```
 
-Streaming responses return content incrementally in SSE (Server-Sent Events) format.
+Streaming responses return content incrementally in SSE (Server-Sent Events) format. Intermediate events normally contain only incremental content. The terminal event with authoritative token counts includes both native `usageMetadata` and normalized `usage`, with the charge at `usage.cost`:
+
+```text
+data: {"candidates":[{"content":{"parts":[{"text":"Hello!"}],"role":"model"},"index":0}],"modelVersion":"gemini-3.1-flash-lite","model":"gemini-3.1-flash-lite"}
+
+data: {"candidates":[{"content":{"parts":[],"role":"model"},"finishReason":"STOP","index":0}],"usageMetadata":{"promptTokenCount":7,"candidatesTokenCount":89,"totalTokenCount":96},"usage":{"prompt_tokens":7,"completion_tokens":89,"total_tokens":96,"cost":{"amount":0.00026161075472,"currency":"credit","list_amount":0.000284359516}},"modelVersion":"gemini-3.1-flash-lite","model":"gemini-3.1-flash-lite"}
+
+```
+
+The stream ends when the connection closes; native Gemini streams do not send `data: [DONE]`. If the terminal price preview is unavailable, `usage` still contains token counts but omits `cost`.
 
 ## Supported Models
 
