@@ -6,6 +6,12 @@ Google Gemini is a very powerful AI conversation system that can generate smooth
 
 The Gemini Generate Content API uses Google's official native request format (`contents` field), rather than the OpenAI-compatible format (`messages` field). If you are already using the Google Gemini SDK or are familiar with the official API format, you can use this API directly without modifying the request format.
 
+## Current Support
+
+The native endpoints accept text, image, video, and audio inputs, with media supplied through `inlineData` or `fileData`, as well as thinking configuration and custom function declarations. Audio output, built-in tools, and explicit context caching do not have a uniform availability guarantee; behavior depends on the specific model's actual response.
+
+For files such as audio submitted through `fileData.fileUri`, use an HTTPS URL that is directly accessible without a login. Keep signed URLs valid for the entire request processing time. Non-streaming audio analysis returns only after the model finishes processing and may take more than 90 seconds. Set a sufficiently long total client timeout for the file size and use case so the connection is not closed while the server is still processing.
+
 ## Application Process
 
 To use the Gemini Generate Content API, you can first visit the [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) page and click the "Acquire" button to obtain the credentials needed for the request.
