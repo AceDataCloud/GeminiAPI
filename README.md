@@ -6,7 +6,7 @@ Google Gemini generative services, including chat completions and native generat
 
 API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=gemini_api_readme_services_dda998fe_e11f_41b8_afa9_0a9b8420d60d)
 
-Keywords: gemini-api, google-gemini, gemini-3.6-flash, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: gemini-api, google-gemini, gemini-4-argon, gemini-3.8-flash, gemini-3.6-flash, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Get your Ace Data Cloud API key
 
@@ -31,7 +31,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 ## Overview
 
-Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. The current flagship models are `gemini-3.1-pro` and `gemini-3.6-flash` (Chat Completions only), with `gemini-3-pro-preview`, `gemini-2.5-pro`, `gemini-2.5-flash`, and other variants also available. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode.
+Google Gemini supports both OpenAI-compatible Chat Completions and the native `generateContent` / `streamGenerateContent` endpoints. `gemini-4-argon` is available on both paths for complex reasoning, alongside `gemini-3.8-flash` and other Gemini variants. Input types and advanced controls depend on the selected endpoint and model; check the current API reference before using them.
 
 ## Application Process
 

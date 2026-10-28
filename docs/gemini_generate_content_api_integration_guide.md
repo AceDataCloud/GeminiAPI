@@ -116,6 +116,7 @@ The stream ends when the connection closes; native Gemini streams do not send `d
 
 | Model Name | Description |
 |---------|------|
+| `gemini-4-argon` | Deep reasoning model supported on `generateContent` and streaming generation |
 | `gemini-2.5-flash` | Excellent cost-performance ratio, suitable for high-volume low-latency tasks |
 | `gemini-2.5-pro` | Most advanced model, deep reasoning for complex tasks |
 | `gemini-2.5-flash-lite` | Fastest and most economical multi-modal model |

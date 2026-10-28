@@ -20,7 +20,9 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/f6ksts.png" width="400" class="m-auto" /></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Gemini official model we choose to use. Here we mainly have 6 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of the questions we input. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, provide `authorization`, a published `model` such as `gemini-4-argon` or `gemini-3.8-flash`, and a `messages` array. Each message contains a `role` and `content`; roles include `user`, `assistant`, and `system`. Check the live model list for the current choices.
+
+`gemini-4-argon` supports ordinary and streaming text responses here. It can use part of the output budget for thinking, so allow enough `max_tokens` for complex tasks. Google's background long-output Interactions API is a separate interface.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
