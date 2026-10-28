@@ -124,6 +124,8 @@ The stream ends when the connection closes; native Gemini streams do not send `d
 | `gemini-3.1-pro` | Advanced intelligence with powerful agent and coding capabilities |
 | `gemini-2.0-flash` | Second-generation main model |
 
+For `gemini-4-argon`, thinking and visible text share the output budget. Google recommends at least 32,768 output tokens for ordinary tasks; configure `generationConfig.maxOutputTokens` for your workload and check `finishReason`. This is a recommendation, not a minimum accepted request value. The model ignores `temperature`, `topP`, and `topK` and supports only implicit caching; do not create or reference explicit cached content. These endpoints do not provide the background long-output or server-side session features of Google's separate Interactions API.
+
 ## Advanced Features
 
 ### System Instructions

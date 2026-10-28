@@ -22,7 +22,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 When using this interface for the first time, provide `authorization`, a published `model` such as `gemini-4-argon` or `gemini-3.8-flash`, and a `messages` array. Each message contains a `role` and `content`; roles include `user`, `assistant`, and `system`. Check the live model list for the current choices.
 
-`gemini-4-argon` supports ordinary and streaming text responses here. It can use part of the output budget for thinking, so allow enough `max_tokens` for complex tasks. Google's background long-output Interactions API is a separate interface.
+`gemini-4-argon` supports ordinary and streaming text responses here. Thinking and visible text share the output budget; Google recommends allowing at least 32,768 output tokens for ordinary tasks, so set `max_tokens` accordingly and check the finish reason. This is a budget recommendation, not a minimum accepted request value. Google ignores `temperature`, `top_p`, and `top_k` for this model, and only implicit caching is supported. Google's background long-output Interactions API is a separate interface, not a capability of this endpoint.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
