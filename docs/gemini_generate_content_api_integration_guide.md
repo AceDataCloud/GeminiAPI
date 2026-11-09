@@ -189,9 +189,18 @@ For `gemini-4-argon`, thinking and visible text share the output budget. Google 
 }
 ```
 
-### Thinking Mode
+### Internal Thinking and Thought Summaries
 
-Models that support thinking (such as gemini-2.5-flash, gemini-2.5-pro) can enable thinking mode:
+Internal model thinking and returning thought summaries are separate settings:
+
+- `generationConfig.thinkingConfig.thinkingBudget` or `thinkingLevel` controls the internal thinking budget or depth. Supported fields and values depend on the model.
+- `generationConfig.thinkingConfig.includeThoughts` controls whether thought summaries are returned and defaults to `false`. When omitted or set to `false`, both ordinary JSON and SSE streaming responses filter text marked `thought: true`. Only an explicit boolean `true` retains that text.
+
+When `includeThoughts` is omitted, the API sends `false` to generation models that support thinking configuration. Explicit values, thinking budgets and levels are preserved. The API does not automatically add this field for `gemini-2.5-flash-image`, which does not support thinking configuration, or add generation configuration to `countTokens` requests.
+
+Hiding summaries does not disable internal thinking or guarantee fewer thinking tokens. If unrequested thought text is still returned by the model, the API filters it from both JSON and SSE output while preserving normal answers, signatures and actual usage.
+
+To request summaries, explicitly opt in as follows. Even with this setting enabled, a model may not produce an available summary:
 
 ```json
 {
@@ -203,12 +212,15 @@ Models that support thinking (such as gemini-2.5-flash, gemini-2.5-pro) can enab
   ],
   "generationConfig": {
     "thinkingConfig": {
-      "includeThoughts": true,
-      "thinkingBudget": 2048
+      "includeThoughts": true
     }
   }
 }
 ```
+
+`thoughtSignature` is encrypted state needed for subsequent turns, not thought-summary text, and is not controlled by `includeThoughts`. Signatures may appear on normal answers, function calls or empty-text Parts. Filtering thought text preserves the signature and other fields on the same Part, so a response may still contain Parts with a signature but no text. When maintaining conversation history manually, preserve Part order and signature placement; do not move or merge signatures.
+
+`usageMetadata` and normalized `usage` still report actual usage. Hiding summaries does not reset `thoughtsTokenCount` or eliminate thinking-token charges; billing follows actual usage and current pricing rules.
 
 ### Function Calling
 
