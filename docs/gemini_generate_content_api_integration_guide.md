@@ -10,6 +10,8 @@ The Gemini Generate Content API uses Google's official native request format (`c
 
 The native endpoints accept text, image, video, and audio inputs, with media supplied through `inlineData` or `fileData`, as well as thinking configuration and custom function declarations. Audio output, built-in tools, and explicit context caching do not have a uniform availability guarantee; behavior depends on the specific model's actual response.
 
+Use `gemini-4-neon` in the Chat Completions `model` field or the native `generateContent` URL. Thinking tokens count toward output usage.
+
 `gemini-4-carbon` and `gemini-4-hydrogen` are currently available through Chat Completions; native Generate Content is temporarily unavailable for these two models. Their official multimodal specifications do not establish that every input type has been verified on this platform. Use the Chat Completions contract for current integrations and validate native inputs and parameters separately when native access becomes available. Both models support implicit caching only; thinking tokens are billed at the output rate. Check the current model pricing before calling them.
 
 For files such as audio submitted through `fileData.fileUri`, use an HTTPS URL that is directly accessible without a login. Keep signed URLs valid for the entire request processing time. Non-streaming audio analysis returns only after the model finishes processing and may take more than 90 seconds. Set a sufficiently long total client timeout for the file size and use case so the connection is not closed while the server is still processing.

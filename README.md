@@ -43,6 +43,8 @@ This restriction changes neither trial API availability nor pricing; fees are se
 
 Google Gemini supports both OpenAI-compatible Chat Completions and the native `generateContent` / `streamGenerateContent` endpoints. `gemini-4-argon` is available on both paths for complex reasoning, alongside `gemini-3.8-flash` and other Gemini variants. Input types and advanced controls depend on the selected endpoint and model; check the current API reference before using them.
 
+Use `gemini-4-neon` in the Chat Completions `model` field or the native `generateContent` URL. Thinking tokens count toward output usage.
+
 `gemini-4-carbon` and `gemini-4-hydrogen` support ordinary and streaming text replies through Chat Completions. Native Generate Content is currently unavailable for these two models. Thinking consumes the output budget, so allow enough `max_tokens` and check the finish reason. Google's separate long-output Interactions API is outside this endpoint's contract.
 
 ## Application Process
