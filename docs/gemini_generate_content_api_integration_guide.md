@@ -2,6 +2,8 @@
 
 Google Gemini is a very powerful AI conversation system that can generate smooth and natural replies in just a few seconds by inputting prompts. This document mainly describes the usage of the Gemini Generate Content API, which is Google's official native API format, supporting both `generateContent` and `streamGenerateContent` endpoints.
 
+New integrations use `/v1` for both generation methods. Existing clients can continue to use `/v1beta` with the same Ace Data Cloud key and pricing.
+
 ## Difference from Chat Completions API
 
 The Gemini Generate Content API uses Google's official native request format (`contents` field), rather than the OpenAI-compatible format (`messages` field). If you are already using the Google Gemini SDK or are familiar with the official API format, you can use this API directly without modifying the request format.
@@ -26,10 +28,10 @@ If you are not logged in or registered, you will be automatically redirected to 
 
 ### Non-Streaming
 
-Send a POST request to `/v1beta/models/{model}:generateContent`:
+Send a POST request to `/v1/models/{model}:generateContent`:
 
 ```bash
-curl -X POST "https://api.acedata.cloud/v1beta/models/gemini-2.5-flash:generateContent" \
+curl -X POST "https://api.acedata.cloud/v1/models/gemini-2.5-flash:generateContent" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -85,10 +87,10 @@ Example return result:
 
 ### Streaming
 
-Send a POST request to `/v1beta/models/{model}:streamGenerateContent?alt=sse`:
+Send a POST request to `/v1/models/{model}:streamGenerateContent?alt=sse`:
 
 ```bash
-curl -X POST "https://api.acedata.cloud/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse" \
+curl -X POST "https://api.acedata.cloud/v1/models/gemini-2.5-flash:streamGenerateContent?alt=sse" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

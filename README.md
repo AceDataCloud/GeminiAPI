@@ -74,7 +74,7 @@ Explore the supported endpoints and integration guides for Gemini.
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [Gemini Chat Completion API](https://platform.acedata.cloud/documents/gemini-chat-completions?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
-| [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/v1/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
 
 ## Troubleshooting
 
